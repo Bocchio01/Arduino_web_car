@@ -1,0 +1,14 @@
+{
+  "name": "server-echo",
+  "version": "1.0.0",
+  "description": "First test with node WS",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bocchio",
+  "license": "ISC",
+  "dependencies": {
+    "ws": "^7.5.3"
+  }
+}
