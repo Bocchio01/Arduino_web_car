@@ -1,0 +1,23 @@
+button {
+    cursor: pointer;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: orange;
+    margin: 10px;
+    font-family: monospace;
+    width: max-content;
+}
+
+/*container_up*/
+.container_up {
+    text-align: center;
+    margin-bottom: 75px;
+    text-align: -webkit-center;
+}
+
+#joy_link {
+    position: relative;
+    width: 95%;
+    max-width: 400px;
+    aspect-ratio: 1 / 1;
+}

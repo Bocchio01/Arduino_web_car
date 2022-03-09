@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "xlocale": "cpp",
+        "xstring": "cpp",
+        "string_view": "cpp"
+    },
+    "arduino.path": "C:/Users/Bocchio/Desktop/Tommaso/Programmazione/Arduino",
+    "arduino.additionalUrls": [
+        "http://arduino.esp8266.com/stable/package_esp8266com_index.json"
+    ]
+}

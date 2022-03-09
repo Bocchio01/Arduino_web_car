@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script type="text/javascript" src="./JoyStick-lib/joy.min.js"></script>
+
+	<title>Joystick WebSocket</title>
+	<style>
+		@import url(style.css);
+	</style>
+</head>
+
+<body>
+
+	<div class="container_up">
+
+		<div id='JoyStick_box'>
+			<h1>Joystick</h1>
+			<div id="joy_link"></div>
+		</div>
+
+		<button id="reboot_ard" onclick="disconnect()">Esegui il reboot di arduino</button>
+		<button onclick="ws = init()">Connetti</button>
+	</div>
+
+
+</body>
+<script>
+
+	window.addEventListener('load', function () {
+		var data_prec = ""
+		var fin_value_new = []
+		var joy = new JoyStick('joy_link', { "title": "joystick_canvas", "internalFillColor": "orange", "internalStrokeColor": "orange", "externalStrokeColor": "black" });
+		var joy_canvas = document.getElementById('joystick_canvas')
+
+
+		joy_canvas.addEventListener('mousemove', () => {
+			const rect = document.getElementById('joy_link').getBoundingClientRect()
+
+			const parameters = [Math.round(joy.GetX()), Math.round(joy.GetY())]
+
+			const min = [-6, -20]
+			const max = [6, 20]
+
+			for (var i = 0; i < min.length; i++) {
+				var range = max[i] - min[i]
+				fin_value_new[i] = Math.floor((parameters[i] / 200) * range)
+			}
+
+			var data_new = JSON.stringify({ value: { "D": fin_value_new[1], "S": fin_value_new[0] } });
+
+			if (data_prec != data_new) {
+				try {
+					ws.send(data_new)
+					console.log(data_new)
+				}
+				catch (error) {
+					alert('Errore, non sono riuscito ad inviare i dati al Server')
+				}
+			}
+			data_prec = data_new
+		});
+
+	});
+	function init() {
+		console.log('Connesione in corso...')
+		var ws = new WebSocket('ws://127.0.0.1:5000')
+		ws.onopen = () => {
+			console.log('Connesso')
+			ws.send(JSON.stringify({ type: 'HandShake', value: 'Client' }))
+		}
+		return ws
+	}
+
+	function disconnect() {
+		ws.send(JSON.stringify({ type: 'Disconnect', value: ['Arduino_0', 'Arduino_1', 'Arduino_2', 'Arduino_3'] }))
+	}
+
+</script>
+
+</html>

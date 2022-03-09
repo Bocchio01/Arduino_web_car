@@ -1,2 +1,2 @@
-ws_node/client-echo/node_modules/*
-ws_node/server-echo/node_modules/*
+**/node_modules/*
+_*
